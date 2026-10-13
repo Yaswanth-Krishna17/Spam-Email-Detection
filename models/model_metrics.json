@@ -1,0 +1,118 @@
+{
+    "dataset_statistics": {
+        "total_samples": 5171,
+        "ham_samples": 4518,
+        "spam_samples": 653,
+        "train_samples": 4136,
+        "test_samples": 1035
+    },
+    "models_evaluated": {
+        "Multinomial Naive Bayes": {
+            "Accuracy": 0.972,
+            "Precision": 0.9904,
+            "Recall": 0.7863,
+            "F1-Score": 0.8766,
+            "ROC-AUC": 0.9854,
+            "Confusion_Matrix": [
+                [
+                    903,
+                    1
+                ],
+                [
+                    28,
+                    103
+                ]
+            ]
+        },
+        "Logistic Regression": {
+            "Accuracy": 0.9633,
+            "Precision": 0.9794,
+            "Recall": 0.7252,
+            "F1-Score": 0.8333,
+            "ROC-AUC": 0.9923,
+            "Confusion_Matrix": [
+                [
+                    902,
+                    2
+                ],
+                [
+                    36,
+                    95
+                ]
+            ]
+        },
+        "Support Vector Machine (Linear)": {
+            "Accuracy": 0.9807,
+            "Precision": 0.9587,
+            "Recall": 0.8855,
+            "F1-Score": 0.9206,
+            "ROC-AUC": 0.995,
+            "Confusion_Matrix": [
+                [
+                    899,
+                    5
+                ],
+                [
+                    15,
+                    116
+                ]
+            ]
+        },
+        "Random Forest": {
+            "Accuracy": 0.9749,
+            "Precision": 0.973,
+            "Recall": 0.8244,
+            "F1-Score": 0.8926,
+            "ROC-AUC": 0.9925,
+            "Confusion_Matrix": [
+                [
+                    901,
+                    3
+                ],
+                [
+                    23,
+                    108
+                ]
+            ]
+        },
+        "Tuned Multinomial Naive Bayes": {
+            "Accuracy": 0.9758,
+            "Precision": 0.9492,
+            "Recall": 0.855,
+            "F1-Score": 0.8996,
+            "ROC-AUC": 0.9903,
+            "Confusion_Matrix": [
+                [
+                    898,
+                    6
+                ],
+                [
+                    19,
+                    112
+                ]
+            ],
+            "Best_Params": {
+                "classifier__alpha": 0.1,
+                "tfidf__max_features": 5000
+            }
+        }
+    },
+    "selected_best_model": "Multinomial Naive Bayes",
+    "selected_model_metrics": {
+        "Accuracy": 0.972,
+        "Precision": 0.9904,
+        "Recall": 0.7863,
+        "F1-Score": 0.8766,
+        "ROC-AUC": 0.9854,
+        "Confusion_Matrix": [
+            [
+                903,
+                1
+            ],
+            [
+                28,
+                103
+            ]
+        ]
+    }
+}
