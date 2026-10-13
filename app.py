@@ -21,6 +21,7 @@ import json
 import warnings
 import joblib
 import pandas as pd
+import streamlit as st
 
 # Suppress dependency and deprecation warnings
 warnings.filterwarnings("ignore")
@@ -28,21 +29,18 @@ warnings.filterwarnings("ignore")
 # If user executed `python app.py` directly in terminal or clicked Run in VS Code,
 # automatically launch it with `streamlit run app.py`
 if __name__ == "__main__":
-    try:
-        from streamlit.runtime.scriptrunner import get_script_run_ctx
-        if get_script_run_ctx() is None:
-            import subprocess
-            print("=" * 65)
-            print("  🚀 Launching Streamlit Web App...")
-            print("  Opening at: http://localhost:8501")
-            print("  Press Ctrl+C in terminal to stop.")
-            print("=" * 65)
+    if not st.runtime.exists():
+        import subprocess
+        print("=" * 65)
+        print("  🚀 Launching Streamlit Web App...")
+        print("  Opening at: http://localhost:8501")
+        print("  Press Ctrl+C in terminal to stop.")
+        print("=" * 65)
+        try:
             subprocess.run([sys.executable, "-m", "streamlit", "run", os.path.abspath(__file__)])
-            sys.exit(0)
-    except Exception:
-        pass
-
-import streamlit as st
+        except KeyboardInterrupt:
+            print("\n[INFO] Streamlit Web App stopped cleanly.")
+        sys.exit(0)
 
 # Add src to path for module imports
 src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "src")
@@ -291,7 +289,7 @@ with tab2:
                 "F1-Score": f"{data['F1-Score']*100:.2f}%",
                 "ROC-AUC": f"{data['ROC-AUC']*100:.2f}%" if data.get("ROC-AUC") else "N/A"
             })
-        st.dataframe(pd.DataFrame(summary_rows), use_container_width=True)
+        st.dataframe(pd.DataFrame(summary_rows), width="stretch")
 
         col_metric1, col_metric2, col_metric3, col_metric4 = st.columns(4)
         best_metrics = metrics_data.get("selected_model_metrics", {})
@@ -308,11 +306,11 @@ with tab2:
     with col_chart1:
         comp_img = os.path.join(os.path.dirname(os.path.abspath(__file__)), "visualizations", "model_comparison.png")
         if os.path.exists(comp_img):
-            st.image(comp_img, caption="Figure 1: Benchmark Comparison across 4 Classifiers", use_container_width=True)
+            st.image(comp_img, caption="Figure 1: Benchmark Comparison across 4 Classifiers", width="stretch")
     with col_chart2:
         cm_img = os.path.join(os.path.dirname(os.path.abspath(__file__)), "visualizations", "confusion_matrix_best_model.png")
         if os.path.exists(cm_img):
-            st.image(cm_img, caption="Figure 2: Confusion Matrix for Best Model (Multinomial NB)", use_container_width=True)
+            st.image(cm_img, caption="Figure 2: Confusion Matrix for Best Model (Multinomial NB)", width="stretch")
 
 # -------------------------------------------------------------
 # TAB 3: Dataset & EDA
@@ -337,23 +335,23 @@ with tab3:
     with eda_row1_col1:
         class_dist_img = os.path.join(os.path.dirname(os.path.abspath(__file__)), "visualizations", "class_distribution.png")
         if os.path.exists(class_dist_img):
-            st.image(class_dist_img, caption="Class Frequency & Proportions (Imbalance Ratio: ~6.9:1)", use_container_width=True)
+            st.image(class_dist_img, caption="Class Frequency & Proportions (Imbalance Ratio: ~6.9:1)", width="stretch")
 
     with eda_row1_col2:
         msg_len_img = os.path.join(os.path.dirname(os.path.abspath(__file__)), "visualizations", "message_length_distribution.png")
         if os.path.exists(msg_len_img):
-            st.image(msg_len_img, caption="Character Length Distribution: Ham vs Spam", use_container_width=True)
+            st.image(msg_len_img, caption="Character Length Distribution: Ham vs Spam", width="stretch")
 
     eda_row2_col1, eda_row2_col2 = st.columns(2)
     with eda_row2_col1:
         word_box_img = os.path.join(os.path.dirname(os.path.abspath(__file__)), "visualizations", "word_count_distribution.png")
         if os.path.exists(word_box_img):
-            st.image(word_box_img, caption="Word Count Distribution by Class", use_container_width=True)
+            st.image(word_box_img, caption="Word Count Distribution by Class", width="stretch")
 
     with eda_row2_col2:
         top_words_img = os.path.join(os.path.dirname(os.path.abspath(__file__)), "visualizations", "top_words_comparison.png")
         if os.path.exists(top_words_img):
-            st.image(top_words_img, caption="Top 12 Vocabulary Terms in Spam vs Ham", use_container_width=True)
+            st.image(top_words_img, caption="Top 12 Vocabulary Terms in Spam vs Ham", width="stretch")
 
 # -------------------------------------------------------------
 # TAB 4: Interview & Conceptual Guide
